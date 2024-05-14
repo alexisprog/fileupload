@@ -1,10 +1,10 @@
-import express, { Request, Response } from 'express';
-import multer from 'multer';
+const express = require('express');
+const multer = require('multer');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
-app.post('/upload', upload.single('pdf'), (req: Request, res: Response) => {
+app.post('/upload', upload.single('pdf'), (req, res) => {
   if (!req.file) {
     res.status(400).send('No file uploaded');
   } else {
@@ -12,7 +12,7 @@ app.post('/upload', upload.single('pdf'), (req: Request, res: Response) => {
   }
 });
 
-app.get('/download/:filename', (req: Request, res: Response) => {
+app.get('/download/:filename', (req, res) => {
   const { filename } = req.params;
   const file = `uploads/${filename}`;
   res.download(file);

@@ -1,9 +1,0 @@
-env:
-  NODE_ENV: production
-  PORT: 3000
-scripts:
-  - npm install
-  - npm run build
-build:
-  - npm run build
-start: npm start
