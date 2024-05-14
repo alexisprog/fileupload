@@ -24,10 +24,12 @@ app.post('/upload', upload.single('pdf'), (req, res) => {
   } else {
     const { originalname } = req.file;
     const { filename } = req.body;
-    const filePath = path.join(__dirname, 'uploads', filename);
-    
+    const fileExtension = path.extname(originalname);
+    const newFileName = filename + fileExtension;
+    const filePath = path.join(__dirname, 'uploads', newFileName);
+
     fs.renameSync(req.file.path, filePath); // Renombrar el archivo
-    
+
     res.send('File uploaded successfully');
   }
 });
