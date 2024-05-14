@@ -1,9 +1,16 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
+
+// Verificar si la carpeta 'uploads' existe, y si no, crearla
+const uploadsFolderPath = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsFolderPath)) {
+  fs.mkdirSync(uploadsFolderPath);
+}
 
 // Ruta para servir la página de inicio
 app.get('/', (req, res) => {
