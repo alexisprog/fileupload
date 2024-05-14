@@ -17,17 +17,25 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Ruta para el manejo de subida de archivos (POST /upload)
 app.post('/upload', upload.single('pdf'), (req, res) => {
   if (!req.file) {
     res.status(400).send('No file uploaded');
   } else {
+    const { originalname } = req.file;
+    const { filename } = req.body;
+    const filePath = path.join(__dirname, 'uploads', filename);
+    
+    fs.renameSync(req.file.path, filePath); // Renombrar el archivo
+    
     res.send('File uploaded successfully');
   }
 });
 
+// Ruta para la descarga de archivos (GET /download/:filename)
 app.get('/download/:filename', (req, res) => {
   const { filename } = req.params;
-  const file = `uploads/${filename}`;
+  const file = path.join(__dirname, 'uploads', filename);
   res.download(file);
 });
 
