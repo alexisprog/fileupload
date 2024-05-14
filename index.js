@@ -30,6 +30,8 @@ app.post('/upload', upload.single('pdf'), (req, res) => {
 
     fs.renameSync(req.file.path, filePath); // Renombrar el archivo
 
+    console.log('Archivo guardado en:', filePath); // Imprimir la ruta del archivo
+
     res.send('File uploaded successfully');
   }
 });
